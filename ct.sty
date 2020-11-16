@@ -1,12 +1,17 @@
 %% Simple style-file for Combinatorial Theory
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[a4paper]{geometry}
+\usepackage[a4paper,twoside]{geometry}
 \usepackage{amsthm,amssymb,amsmath}
 \usepackage{lmodern}
 \usepackage[noblocks]{authblk}
-\usepackage[colorlinks=true,citecolor=black,linkcolor=black,urlcolor=blue]{hyperref}
-    \renewcommand{\familydefault}{\sfdefault}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=gray]{hyperref}
+ 
+ % fonts
+ \renewcommand{\familydefault}{\sfdefault}
+ \renewcommand\Authfont{\fontsize{12}{14.4}\selectfont}
 
 % change numbering of some things to within section
 \numberwithin{equation}{section}
@@ -14,13 +19,11 @@
 \numberwithin{table}{section}
 
 % Section formatting
-% Method proposed in "The LaTeX Companion", 2nd ed.:
 \def\@seccntformat#1{\@ifundefined{#1@cntformat}%
    {\csname the#1\endcsname\space}%    default
    {\csname #1@cntformat\endcsname}}%  enable individual control
 \newcommand\section@cntformat{\thesection.\space}       % section-level
 \newcommand\subsection@cntformat{\thesubsection.\space} % subsection-level
-
 
 
 % dimensions
@@ -50,13 +53,17 @@
 \ifx\papid\undefined\def\papid{abcd}\fi
 
 \newcommand{\Copyright}[1]{\def\copy@right{\copyright\thinspace\ignorespaces#1}}
-\newcommand{\dateline}[3]{\def\the@dateline{Submitted: \ignorespaces#1;
+\newcommand{\dateline}[3]{\footnotesize \def\the@dateline{Submitted: \ignorespaces#1;
     Accepted: \ignorespaces#2; Published: \ignorespaces#3\\[0.5ex]\copy@right}}
 \newcommand{\MSC}[1]{\def\the@MSC{\ignorespaces#1}}
+\providecommand{\keywords}[1]
+{
+  \linebreak\small	
+  \textbf{\textbf{Keywords:\,}} #1
+}
 
 \let\old@maketitle\maketitle
 \renewcommand{\maketitle}{\date{\small\the@dateline}\old@maketitle}
-
 
 %% abstracts presentation
 \def\abstractheadfont{\scshape}
@@ -75,7 +82,7 @@
 %% for section and subsection headings, and adjusts the space just below
 %% each such heading.
 
-\renewcommand\title[1]{\gdef\@title{\reset@font\Large\bfseries #1}}
+\renewcommand\title[1]{\gdef\@title{\reset@font\Large\scshape #1}}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
                                    {2.3ex \@plus.2ex}%
@@ -105,29 +112,42 @@
 \newfont{\footrm}{cmr10 at 10truept}
 \newfont{\foottt}{cmtt10 at 10truept}
 
-%\renewcommand{\ps@plain}{%
-%\renewcommand{\@oddfoot}{\footsc combinatorial theory
-%{\footbf\volno} (\volyear), \#\papno\hfil
-%\ifnum\value{page}>1{\thepage}\else
-% \href{https://doi.org/10.37236/\papid}{\foottt https://doi.org/10.37236/\papid\kern0.1em}\fi}}
+  % authors in header
+\newcommand*{\authors}{%
+  \begingroup
+    \let\footnote\@gobble% ignore \footnote
+    \let\thanks\@gobble% ignore \thanks
+    \let\textsuperscript\@gobble% ignore protected \textsuperscript
+    \expandafter\let\csname textsuperscript \endcsname\@gobble
+    \let\Authfont\relax% do not use a special font
+    \def\Authand{, }% separate list of authors by ,
+    \ifnum\value{authors}<3 % one ore two authors
+      \AB@authlist% show them all
+    \else% 3 or more authors
+      % show only the first one followed by "et.~al"
+      \expandafter\@firstof@authlist\AB@authlist\@nil\ et.~al%
+    \fi
+  \endgroup
+}
+%\def\@firstof@authlist#1\footnote#2\@nil{#1}% skip all from the first footnote
+\def\@firstof@authlist#1\thanks#2\@nil{#1}% skip all from the first thanks		... later make this work for both footnote and thanks
 
+
+% headers and footers
 \renewcommand{\ps@plain}{%
-\renewcommand{\@oddhead}{\footsc combinatorial theory
-{\footbf\volno} (\volyear), \#\papno\hfil
-%\ifnum\value{page}>1{\thepage}\else
- %\href{https://doi.org/10.37236/\papid}{\foottt https://doi.org/10.37236/\papid\kern0.1em}\fi}
- }
- %
+\ps@headings
+\renewcommand{\@evenhead}{\hfil \authors}
+\renewcommand{\@oddhead}{\footsc combinatorial theory {\footbf\volno} (\volyear), \#\papno \hfil}
+%
  \renewcommand{\@oddfoot}{\hfil
 \ifnum\value{page}>1{\thepage}\else
  \href{https://www.combinatorial-theory.org}{\foottt combinatorial-theory.org}\fi}
  %
  }
-
-
-
-
+ 
+ 
 \pagestyle{plain}
+
 \g@addto@macro\bfseries{\boldmath}
 
 %%%  Squashing the bibliography together a bit
@@ -172,8 +192,6 @@
 
 % addresses and emails
 \renewcommand\Affilfont{\fontsize{9}{10.8}\itshape}
-
-
 
 % For linking to an arXiv article:
 \newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{\texttt{arXiv:#1}}}
