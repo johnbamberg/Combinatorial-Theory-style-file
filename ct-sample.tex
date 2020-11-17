@@ -2,6 +2,7 @@
 %
 % EJC papers *must* begin with the following two lines. 
 \documentclass[12pt]{article}
+  
 \usepackage{ct}
 
 % GEOMETRY
@@ -53,7 +54,7 @@
 %    More than one author: ===================
 %\Copyright{The authors.}
 %\Copyright{The authors. Released under the CC BY license (International 4.0).}
-\Copyright{The authors. Released under the CC BY-NC license (International 4.0).}
+\Copyright{The authors. Released under the CC BY license (International 4.0).}
 
 % TITLE
 % If needed, include a line break (\\) at an appropriate place in the title.
@@ -64,20 +65,8 @@
 % The address should include the country, but does not have to include
 %    the street address. Give at least one email address.
 
-    \newcommand\emailfont{\sffamily}
-    \newcommand\emailampersat{\small@}
 
-    \catcode`\_=11\relax
-    \def\_email#1@#2\q_nil{%
-      \href{mailto:#1@#2}{{\emailfont #1\emailampersat #2}}
-    }    
-   \newcommand\email[1]{\_email #1\q_nil}
-    \catcode`\_=8\relax
-  
-  
 
-  
-    
 \author[1]{First Author\thanks{Supported by NASA grant ABC123.}}
 \author[2,3]{Some Second Author}
 \author[3]{Some Third Author}
@@ -86,7 +75,8 @@
 \email{fa@solatido.edu}%
 }
 \affil[2,3]{School of Hard Knocks, University of Western Nowhere, Somewhere, Australia\newline
-\email{\{ssa,sta\}@uwn.edu.au}}
+\email{\{ssa,sta\}@uwn.edu.au}%
+}
 
 
 

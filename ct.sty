@@ -192,6 +192,8 @@
 
 % addresses and emails
 \renewcommand\Affilfont{\fontsize{9}{10.8}\itshape}
+ \newcommand\emailfont{\sffamily}
+ \newcommand*{\email}[1]{\href{mailto:#1}{\emailfont#1} } 
 
 % For linking to an arXiv article:
 \newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{\texttt{arXiv:#1}}}
