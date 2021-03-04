@@ -3,15 +3,14 @@
 
 \usepackage[a4paper,twoside]{geometry}
 \usepackage{amsthm,amssymb,amsmath}
-\usepackage{tgtermes}
+\usepackage{lmodern}
 \usepackage[noblocks]{authblk}
-\usepackage{xparse}	 	% see comment (*) below
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=black]{hyperref}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=gray]{hyperref}
  
  % fonts
- \renewcommand{\familydefault}{qtm}
+ \renewcommand{\familydefault}{\sfdefault}
  \renewcommand\Authfont{\fontsize{12}{14.4}\selectfont}
 
 % change numbering of some things to within section
@@ -83,7 +82,7 @@
 %% for section and subsection headings, and adjusts the space just below
 %% each such heading.
 
-\renewcommand\title[1]{\gdef\@title{\reset@font\scshape #1}}
+\renewcommand\title[1]{\gdef\@title{\reset@font\Large\scshape #1}}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
                                    {2.3ex \@plus.2ex}%
@@ -113,38 +112,7 @@
 \newfont{\footrm}{cmr10 at 10truept}
 \newfont{\foottt}{cmtt10 at 10truept}
 
-  % Authors in header
-  % ----------------------------
-  % Comment (*)
-  % The following solution would ideally have
-  % \NewCommandCopy{\authblkauthor}{\author}
-  % 		instead of
-  % \let\authblkauthor\author
-  % but this requires everyone to have the newest LaTeX.
-  % Likewise, we load xparse so that we can use \ReNewCommand and
-  % \NewExpandableDocumentCommand.
-  %This is also in the newest LaTeX kernel.
-  % ----------------------------
-
- \let\authblkauthor\author
-
-\ExplSyntaxOn
-
-\seq_new:N \g_ct_authors_seq
-\RenewDocumentCommand{\author}{om}
- {
-  \seq_gput_right:Nn \g_ct_authors_seq { #2 }
-  \IfNoValueTF { #1 } { \authblkauthor{#2} } { \authblkauthor[#1]{#2} }
- }
- % The following command returns the m-th author
-\NewDocumentCommand{\ABgetauthor}{m}	% \NewExpandableDocumentCommand{\ABgetauthor}{m} 
- {
-  \seq_item:Nn \g_ct_authors_seq { #1 }
- }
-
-\ExplSyntaxOff
-
-
+  % authors in header
 \newcommand*{\authors}{%
   \begingroup
     \let\footnote\@gobble% ignore \footnote
@@ -156,18 +124,26 @@
     \ifnum\value{authors}<3 % one ore two authors
       \AB@authlist% show them all
     \else% 3 or more authors
-  	\ABgetauthor{1}\,et~al.
+      % show only the first one followed by "et.~al"
+      \expandafter\@firstof@authlist\AB@authlist\@nil\ et.~al%
     \fi
   \endgroup
 }
+%\def\@firstof@authlist#1\footnote#2\@nil{#1}% skip all from the first footnote
+\def\@firstof@authlist#1\thanks#2\@nil{#1}% skip all from the first thanks		... later make this work for both footnote and thanks
 
 
 % headers and footers
 \renewcommand{\ps@plain}{%
 \ps@headings
 \renewcommand{\@evenhead}{\hfil \authors}
-\renewcommand{\@oddhead}{\footsc combinatorial theory {\footbf\volno} (\volyear), \#\papno \hfil \ifnum\value{page}>1{\thepage}\else
- \href{https://www.combinatorial-theory.org}{\foottt combinatorial-theory.org}\fi}}
+\renewcommand{\@oddhead}{\footsc combinatorial theory {\footbf\volno} (\volyear), \#\papno \hfil}
+%
+ \renewcommand{\@oddfoot}{\hfil
+\ifnum\value{page}>1{\thepage}\else
+ \href{https://www.combinatorial-theory.org}{\foottt combinatorial-theory.org}\fi}
+ %
+ }
  
  
 \pagestyle{plain}
@@ -216,7 +192,7 @@
 
 % addresses and emails
 \renewcommand\Affilfont{\fontsize{9}{10.8}\itshape}
- \newcommand\emailfont{qtm}
+ \newcommand\emailfont{\sffamily}
  \newcommand*{\email}[1]{\href{mailto:#1}{\emailfont#1} } 
 
 % For linking to an arXiv article:

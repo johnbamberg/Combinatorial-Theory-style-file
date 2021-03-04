@@ -66,9 +66,8 @@
 %    the street address. Give at least one email address.
 
 
-
 \author[1]{First Author\thanks{Supported by NASA grant ABC123.}}
-\author[2,3]{Some Second Author}
+\author[2]{Some Second Author}
 \author[3]{Some Third Author}
 
 \affil[1]{Department of Inconsequential Studies, Solatido College, North Kentucky, U.S.A.\newline
@@ -85,6 +84,7 @@
 
 
 \begin{document}
+%\writedatatofile
 
 \maketitle
 
@@ -190,47 +190,16 @@ Lemma~\ref{lem:Technical}.
 % If you use BibTeX to create a bibliography, copy the .bbl file into here.
 % \newblock is optional (it adds a little space)
 
-\begin{thebibliography}{99}
 
-\bibitem{Bollobas} B. Bollob{\'a}s. \newblock Almost every
-  graph has reconstruction number three. \newblock \emph{J. Graph Theory},
-  14(1):1--4, 1990.
+% bibliography styles that we like: 
+%
+% 	acm, amsalpha, amsplain, siam
 
-\bibitem{BH} J.~A. Bondy and R. Hemminger,
-\newblock Graph reconstruction---a survey.
-\emph{J. Graph Theory}, 1:227--268, 1977. \doi{10.1002/jgt.3190010306}.
+\bibliographystyle{siam}
+\bibliography{references}
 
-\bibitem{FGH} J.~Fisher, R.~L. Graham, and F.~Harary. \newblock A
-  simpler counterexample to the reconstruction conjecture for
-  denumerable graphs. \newblock \emph{J. Combinatorial Theory, Ser. B},
-  12:203--204, 1972.
-
-\bibitem{HHRT} E. Hemaspaandra, L.~A. Hemaspaandra,
-  S.~P. Radziszowski, and R. Tripathi. \newblock
-  Complexity results in graph reconstruction. \newblock \emph{Discrete
-    Appl. Math.}, 155(2):103--118, 2007.
-
-\bibitem{Kelly} P.~J. Kelly. \newblock A congruence theorem for
-  trees. \newblock \emph{Pacific J. Math.}, 7:961--968, 1957.
-
-\bibitem{KSU} M. Kiyomi, T. Saitoh, and R. Uehara.
-  \newblock Reconstruction of interval graphs. \newblock In 
-    \emph{Computing and combinatorics}, volume 5609 of
-    \emph{Lecture Notes in Comput. Sci.}, pages 106--115. Springer, 2009.
-
-\bibitem{Stockmeyer} P.~K. Stockmeyer. \newblock The falsity of the
-  reconstruction conjecture for tournaments. \newblock \emph{J. Graph
-    Theory}, 1(1):19--25, 1977.
-
-\bibitem{Ulam} S.~M. Ulam. \newblock \newblock {A collection of
-    mathematical problems}. \newblock Interscience Tracts in Pure and
-  Applied Mathematics, no. 8.  Interscience Publishers, New
-  York-London, 1960.
-  
-\bibitem{WS} D.~B. West and H. Spinoza.
- \newblock Reconstruction from $k$-decks for graphs with maximum degree~2.
- \newblock \arxiv{1609.00284vi}, 2016.
-
-\end{thebibliography}
 
 \end{document}
+
+
+
